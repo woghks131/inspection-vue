@@ -10,15 +10,27 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    methods: {
-        async goLogin() {
-            await this.$api("/auth/login", {});
-            this.$router.push({path: '/main' });
-        }
+<script setup>
+import { ref } from 'vue';
+import { useAuth } from '../api/auth';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const userId = ref('');
+const password = ref('');
+
+const { login } = useAuth();
+
+const goLogin = async () => {
+    try {
+        await login(userId.value, password.value);
+        router.push('/main');
+    } catch (err) {
+        console.error(err);
     }
-}
+};
+
+
 </script>
 
 <style>

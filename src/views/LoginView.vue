@@ -2,8 +2,8 @@
     <div class="login-bg d-flex align-items-start">
         <div style="margin-top: 10rem !important;">
             <p class="fs-1 fw-bold text-light">CAR FRIEND</p>
-            <b-form-input id="input-2" class="mt-5" placeholder="아이디" required ></b-form-input>
-            <b-form-input type="password" id="text-password" class="mt-3" aria-describedby="password-help-block" placeholder="비밀번호"></b-form-input>
+            <b-form-input id="input-2" class="mt-5" placeholder="아이디" required v-model="userId"></b-form-input>
+            <b-form-input type="password" id="text-password" class="mt-3" aria-describedby="password-help-block" placeholder="비밀번호" v-model="password"></b-form-input>
 
             <b-button variant="outline-primary  mt-3" @click="goLogin">로그인</b-button>
 
@@ -13,7 +13,8 @@
 <script>
 export default {
     methods: {
-        goLogin() {
+        async goLogin() {
+            await this.$api("/auth/login", {});
             this.$router.push({path: '/main' });
         }
     }
